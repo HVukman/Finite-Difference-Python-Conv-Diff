@@ -80,13 +80,13 @@ Ident=sparse.eye(n**2).toarray()
 # discrete diffusion
 T= diags([1, -2, 1], [-1, 0, 1], shape=(n,n)).toarray()
 T= T*(1/h**2)
-
-# discrete convection
 A= sparse.kron(T,Ident_n).toarray()+ sparse.kron(Ident_n,T).toarray()
 
+# discrete convection
 A1=diags([-1, 1, 0], [-1, 0, 1], shape=(n**2,n**2)).toarray()
 A1=A1/h
 
+# matrix algebra (IMEX-Scheme)
 M=  Ident + tau*q/2*A1 
 N = Ident + tau*diffusion*A  - (q*tau/2)*A1 - (tau/2)*reaction_coefficient*Ident + (tau/2)*source_coefficient*Ident
 
